@@ -38,6 +38,11 @@ done
 
 cd $backup_dest
 
+todaysdate=`date "+%m-%d-%y"`
+commitmsg="back up on $todaysdate"
+
+git add *
+git commit -m "$commitmsg"
 git push origin master
 
 
