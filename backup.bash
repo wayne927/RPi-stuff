@@ -35,3 +35,9 @@ filelist=(/home/pi/.bashrc /home/pi/backup.bash)
 for f in ${filelist[*]}; do
   cp $f $backup_dest
 done
+
+cd $backup_dest
+
+git push origin master
+
+
