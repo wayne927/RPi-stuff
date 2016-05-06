@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>2015 Eastern Canadian Regional Return Top Championship</title>
+	<link rel="stylesheet" type="text/css" href="style.css"/>
+	<script src="//code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
+	<style>
+		.fName {
+			font-weight: bold;
+			float: left;
+			width: 200px;
+			padding: 4px 0px 1px 5px;
+		}
+		.fValue {
+			float: left;
+			width: 250px;
+			padding: 2px 0px 2px 0px;
+		}
+		.fValue input[type=text] {
+			width: 230px;
+		}
+		
+		.fBreak {
+			clear: both;
+			border: dashed #CCCCCC;
+			border-width: 0px 0px 1px 0px;
+			width: 450px;
+		}
+		.last {
+			border-width: 0px 0px 0px 0px;
+		}
+		.required {
+			color: #FF0000;
+		}
+		.required2 {
+			color: #FFFF00;
+		}
+		.cell {
+			float: left;
+			width: 200px;
+		}
+		.small {
+			font-size: 80%;
+		}
+	</style>
+</head>
+
+<body>
+<script type="text/javascript">
+function checkFields()
+{
+	var required = ["email", "fname", "lname", "street", "city", "province", "country", "postal", "division"];
+	var mes = "";
+
+	for (var i = 0; i < required.length; i++)
+	{
+		var $myItem = $("form[name=regForm] input[name=" + required[i] + "]");
+		
+		if ($myItem.is("[type=radio], [type=checkbox]"))
+		{
+			if ($myItem.filter(":checked").length == 0)
+			{
+				mes += required[i] + "\n";
+			}
+		}
+		else
+		{
+			var myValue = $myItem.val();
+			myValue = myValue.replace(/^\s+/gi, "");
+			myValue = myValue.replace(/\s+$/gi, "");
+			myValue = myValue.replace(/\s+/gi, " ");
+			$myItem.val(myValue);
+			
+			if ($myItem.val() == "")
+			{	
+				mes += required[i] + "\n";
+			}
+		}
+	}
+	
+	if (mes != "")
+	{
+		alert("Please Fill out all the fields before submitting");
+		//alert(mes);
+	}
+	else
+	{
+		$("form[name=regForm]").submit();
+	}
+	
+}
+
+function checkDivisions()
+{
+	var divs = document.getElementsByName('division');
+	
+	// return top sport ladder
+	divs[0].disabled = divs[3].checked;
+	divs[1].disabled = divs[3].checked;
+	if(divs[3].checked)
+	{
+		divs[0].checked = false;
+		divs[1].checked = false;
+	}
+	
+	// kendama
+	//divs[2].disabled = divs[3].checked;
+	//divs[3].disabled = divs[2].checked;
+}
+
+</script>
+
+<div id="frame">
+		<div align="center"><a href="index.html"><img src="logo_for-fullcolour_2015-360x350.png" width="400" border="off"/></a>
+		<h2>November 21st, 2015 in Toronto</h2>
+		</div>
+
+		<hr/>
+		<span id="menu">
+		<a href="index.html">Info</a>
+		<a href="schedule.html">Schedule</a>
+		<a href="rules.html">Rules</a>
+		<a href="venue.html">Venue</a>
+		<a href="register.html">Register</a></span>
+		<br/>
+		<hr/>
+		
+		<br/>
+		
+		<h2>Register</h2>
+		
+		<p>Online registration is now closed. If you'd like to compete and have not registered,
+		please do so at the registration desk in the beginning of the day (see <a href="schedule.html">schedule</a>).</p>
+		
+		<p>
+		The fee for registering at the door is $25 per division for return top 1A, open and kendama beginner ladder,
+		and free for return top sport ladder and kendama mini games.</p>
+		
+		
+		
+		
+</div>
+</body>
+
+</html>
+

@@ -1,0 +1,76 @@
+body {
+    font-family: verdana;
+    font-size: 14px;
+    text-align: center;
+    background-color: black;
+    color: white;
+	margin-top: 0px;
+	margin-bottom: 50px;
+}
+
+#frame {
+    width: 800px;
+    margin: 0px auto 0px auto;
+    text-align: left;
+    padding: 0 10px 10px 10px;
+}
+
+#menu {
+	font-size: 20px;
+	margin-bottom: 20px;
+	text-align: center;
+}
+
+#menu a {
+	float: left;
+	height: 100%;
+	width: 20%;
+	color: white;
+	text-decoration: none;
+}
+
+#menu a:hover {
+	background-color: #444444;
+}
+
+#sponsors {
+	text-align: center;
+}
+
+hr {
+	margin: 0 0 0 0;
+}
+
+a {
+	color: white;
+}
+
+a:hover {
+	color: #888888;
+}
+
+li {
+	margin-bottom: 5px;
+}
+ol li {
+	margin-bottom: 20px;
+}
+
+.emphasized {
+	font-weight: bold;
+}
+
+p.main-header {
+	font-size: 28px;
+	text-decoration: underline;
+}
+
+p.category-title {
+	font-size: 20px;
+	text-decoration: underline;
+}
+
+p.subcategory-title {
+	font-size: 19px;
+}
+

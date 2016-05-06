@@ -1,0 +1,241 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>2015 Eastern Canadian Regional Return Top Championship</title>
+	<link rel="stylesheet" type="text/css" href="style.css"/>
+	<script src="//code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
+	<style>
+		.fName {
+			font-weight: bold;
+			float: left;
+			width: 200px;
+			padding: 4px 0px 1px 5px;
+		}
+		.fValue {
+			float: left;
+			width: 250px;
+			padding: 2px 0px 2px 0px;
+		}
+		.fValue input[type=text] {
+			width: 230px;
+		}
+		
+		.fBreak {
+			clear: both;
+			border: dashed #CCCCCC;
+			border-width: 0px 0px 1px 0px;
+			width: 450px;
+		}
+		.last {
+			border-width: 0px 0px 0px 0px;
+		}
+		.required {
+			color: #FF0000;
+		}
+		.required2 {
+			color: #FFFF00;
+		}
+		.cell {
+			float: left;
+			width: 200px;
+		}
+		.small {
+			font-size: 80%;
+		}
+	</style>
+</head>
+
+<body>
+<script type="text/javascript">
+
+function checkFields()
+{
+	var required = ["email", "fname", "lname", "street", "city", "province", "country", "postal", "division"];
+	var mes = "";
+
+	for (var i = 0; i < required.length; i++)
+	{
+		var $myItem = $("form[name=regForm] input[name=" + required[i] + "]");
+		
+		if ($myItem.is("[type=radio], [type=checkbox]"))
+		{
+			if ($myItem.filter(":checked").length == 0)
+			{
+				mes += required[i] + "\n";
+			}
+		}
+		else
+		{
+			var myValue = $myItem.val();
+			myValue = myValue.replace(/^\s+/gi, "");
+			myValue = myValue.replace(/\s+$/gi, "");
+			myValue = myValue.replace(/\s+/gi, " ");
+			$myItem.val(myValue);
+			
+			if ($myItem.val() == "")
+			{	
+				mes += required[i] + "\n";
+			}
+		}
+	}
+	
+	if (mes != "")
+	{
+		alert("Please Fill out all the fields before submitting");
+		//alert(mes);
+	}
+	else
+	{
+		$("form[name=regForm]").submit();
+	}
+	
+}
+
+function checkDivisions()
+{
+	var divs = document.getElementsByName('division');
+	
+	// return top sport ladder
+	divs[0].disabled = divs[3].checked;
+	divs[1].disabled = divs[3].checked;
+	if(divs[3].checked)
+	{
+		divs[0].checked = false;
+		divs[1].checked = false;
+	}
+	
+	// kendama
+	//divs[2].disabled = divs[3].checked;
+	//divs[3].disabled = divs[2].checked;
+}
+
+</script>
+
+<div id="frame">
+		<div align="center"><a href="index.html"><img src="logo_for-fullcolour_2015-360x350.png" width="400" border="off"/></a>
+		<h2>November 21st, 2015 in Toronto</h2>
+		</div>
+
+		<hr/>
+		<span id="menu">
+		<a href="index.html">Info</a>
+		<a href="schedule.html">Schedule</a>
+		<a href="rules.html">Rules</a>
+		<a href="venue.html">Venue</a>
+		<a href="register.html">Register</a></span>
+		<br/>
+		<hr/>
+		
+		<br/>
+		
+		<h2>Register</h2>
+		
+		<p>Registration and fees are required only for competitors. The deadline for online registration is <span class="required"><strong>November 18th</strong></span>.
+		After the deadline you must register at the door. Admission for spectators is <strong>free</strong>.</p>
+		
+		<h3>Competitive divisions - Online registration</h3>
+		
+		<div class="cell">Return top 1A</div><div class="cell">$10</div><br/>
+		<div class="cell">Return top open</div><div class="cell">$10</div><br/>
+		<div class="cell">Kendama beginner ladder</div><div class="cell">$10</div><br/>
+		
+		<h3>Competitive divisions - Online special rates</h3>
+		<div class="cell">Any two divisions</div><div class="cell">$15</div><br/>
+		<div class="cell">All three divisions</div><div class="cell">$20</div><br/>
+		
+		<h3>Competitive divisions - At-the-door registration</h3>
+		<div class="cell">Per division</div><div class="cell">$25</div><br/>
+		
+		<h3>Casual divisions</h3>
+		<div class="cell">Return top sport ladder<span class="required2">*</span></div><div class="cell">Free</div><br/>
+		<div class="cell">Kendama mini games</div><div class="cell">Free</div><br/>
+		
+		<br/>
+		<!--<div class="small"><span class="required">*</span> You may only compete in <strong><u>one</u></strong> competitive kendama division, not both.</div>-->
+		<div class="small"><span class="required2">*</span> If you compete in return top sport ladder, you may not compete in 1A or open divisions.</div>
+		
+		<br/>
+		
+		<p>Please fill in your details. All fields are required.</p>
+		
+		<form name="regForm" action="/cgi-bin/ECR_register.py" method="POST" style="margin: 0px 0px 20px 0px;" enctype="multipart/form-data">
+		
+			<div class="fName">Email</div>
+			<div class="fValue"><input type="text" name="email" value="" /></div>
+			<div class="fBreak"></div>
+		
+			<div class="fName">First name</div>
+			<div class="fValue"><input type="text" name="fname" value="" /></div>
+			<div class="fBreak"></div>
+			
+			<div class="fName">Last name</div>
+			<div class="fValue"><input type="text" name="lname" value="" /></div>
+			<div class="fBreak"></div>
+			
+			<div class="fName">Street address</div>
+			<div class="fValue"><input type="text" name="street" value="" /></div>
+			<div class="fBreak"></div>
+			
+			<div class="fName">City</div>
+			<div class="fValue"><input type="text" name="city" value="" /></div>
+			<div class="fBreak"></div>
+			
+			<div class="fName">Province/State</div>
+			<div class="fValue"><input type="text" name="province" value="" /></div>
+			<div class="fBreak"></div>
+			
+			<div class="fName">Country</div>
+			<div class="fValue"><input type="text" name="country" value="" /></div>
+			<div class="fBreak"></div>
+			
+			<div class="fName">Postal/Zip code</div>
+			<div class="fValue"><input type="text" name="postal" value="" /></div>
+			<div class="fBreak"></div>
+			
+			<div class="fName">Division</div>
+			<div class="fValue">
+				<input type="checkbox" name="division" value="1A" /> Return top 1A<br />
+				<input type="checkbox" name="division" value="Open"  /> Return top open<br />
+				<input type="checkbox" name="division" value="kenbeg" /> Kendama beginner ladder<br /><br />
+				<input type="checkbox" name="division" value="Ladder" onclick="checkDivisions();" /> Return top sport ladder<br />
+				<input type="checkbox" name="division" value="kengames" /> Kendama mini games<br /><br/>
+			</div>
+
+			<p>&nbsp;</p>
+			<p>&nbsp;</p>
+			<p>&nbsp;</p>
+			<p>&nbsp;</p>
+			
+			<h3>Music upload instructions (Return top 1A and Open only)</h3>
+			<p>If you are only competing in kendama or return sport ladder divisions, you may skip this step and proceed to submit.</p>
+			<ul>
+			<li>Preliminary is 1 minute, and final is 2 minutes. There will not be preliminaries for Open divison.</li>
+			<li>If your music is longer than the allotted time, your music will be stopped at either 1:00 or 2:00 <strong>of the music file</strong>.</li>
+			<li>You must have all music ready and selected before submitting. If you are not competing in one of the divisions, you can leave the field(s) blank.</li>
+			<li>If you want to use the same music for more than one freestyle, please select the same file again. Do not leave the fields blank.</li>
+			<li><span style="color:red;font-weight:bold;">Vocals containing offensive slurs or obscenities <u>in any language</u> will result in disqualification.</span> If you are not sure, please email contest organizers directly before uploading.
+			<li>Only .mp3 and .wav files are accepted. Please keep the file size <strong>smaller than 10 MB for each file</strong>!</li>
+			</ul>
+			
+			<div class="fName">Music - 1A prelim</div>
+			<div class="fValue"><input type="file" name="musicfile1aprelim" /></div>
+			<div class="fBreak"></div>
+			
+			<div class="fName">Music - 1A final</div>
+			<div class="fValue"><input type="file" name="musicfile1afinal" /></div>
+			<div class="fBreak"></div>
+			
+			<div class="fName last">Music - Open final</div>
+			<div class="fValue last"><input type="file" name="musicfileopen" /></div>
+			<div class="fBreak last"></div>
+			
+			&nbsp;<br/>
+			<!--<div style="width: 345px; text-align: center; margin-top: 12px;"><input type="button" value="Submit" onclick="checkFields_ignore();" /></div>-->
+			<div style="width: 345px; text-align: center; margin-top: 12px;"><input type="submit" value="Submit" /></div>
+		</form>
+</div>
+</body>
+
+</html>
+
