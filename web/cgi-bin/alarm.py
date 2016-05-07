@@ -19,17 +19,26 @@ form = cgi.FieldStorage()
 def has_var(var):
     return (var in form and form[var].value != "")
 
+def print_crontab():
+    try:
+        output = subprocess.check_output(['crontab','-l'])
+        print output.replace("\n", "<br>")
+    except:
+        print "Crontab empty."
+
 if(has_var("remove_alarm")):
-    command = "crontab -r > /dev/null"
+#    command = "crontab -r > /dev/null"
+    command = "/home/pi/alarm/stopalarm.bash > /dev/null"
     os.system(command)
     print "Alarm removed!"
 
 elif(has_var("check_crontab")):
-    try:
-        output = subprocess.check_output(['crontab','-l'])
-        print output
-    except:
-        print "Crontab empty."
+    print_crontab()
+#    try:
+#        output = subprocess.check_output(['crontab','-l'])
+#        print output.replace("\n", "<br>")
+#    except:
+#        print "Crontab empty."
 
 elif(has_var("alarm_hour") and has_var("alarm_minute")):
     hour = int(form['alarm_hour'].value)
@@ -41,6 +50,8 @@ elif(has_var("alarm_hour") and has_var("alarm_minute")):
         command = "/home/pi/alarm/setalarm.bash %s %s > /dev/null" % (hour, minute)
         os.system(command)
         print "Alarm set: <br/><div id='time-box'>%s:%s</div>" % (hour, minute)
+        print "<br>"
+        print_crontab()
 
 else:
     print "Input error. Try again."

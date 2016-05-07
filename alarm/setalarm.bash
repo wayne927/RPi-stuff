@@ -10,6 +10,6 @@ minute=$2
 
 echo $hour:$minute
 
-echo "$minute $hour * * * /home/pi/alarm/startalarm.bash" | crontab
+(crontab -l 2>/dev/null ; echo "$minute $hour * * * /home/pi/alarm/startalarm.bash") | crontab
 
 crontab -l
