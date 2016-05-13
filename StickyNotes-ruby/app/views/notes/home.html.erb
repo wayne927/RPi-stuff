@@ -1,0 +1,33 @@
+<div class="container"><div class="row">
+
+<% row_count = 0 %>
+<% @notes.each do |n| 
+row_count += 1
+style_str = "col-sm-4 square "
+case n.color
+when "blue"
+    style_str += "square-blue"
+when "red"
+    style_str += "square-red"
+else
+    style_str += "square-yellow"   
+end %>
+
+<div class="<%= style_str %>">
+    <h2><%= n.title %></h2>
+    <p><%= n.content %></p>
+</div>
+
+<% if(row_count%3==0)  %>
+<div class="clearfix"></div>
+<% end %>
+
+<% end %>
+
+<div class="clearfix"></div>
+
+<div id="new-note-button">
+<%= link_to "New note", "notes/new" %>
+</div>
+
+</div></div>
