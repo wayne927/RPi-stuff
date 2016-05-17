@@ -36,6 +36,10 @@ if( !($result = $mysqli->query("SELECT * FROM StickyNotes;")) )
 
 while($row = $result->fetch_assoc())
 {
+    if($row['active'] != 1)
+        continue;
+
+// color
     echo "<div class='col-sm-4'><div class='square ";
     if($row['color']=='red')
         echo "square-red";
@@ -44,29 +48,74 @@ while($row = $result->fetch_assoc())
     else
         echo "square-yellow";
     echo "'>\n";
+
+// title
     echo "<h2>".$row['title']."</h2>\n";
+
+// body content
     echo "<p>\n";
     echo $row['content'];
     echo "</p>\n";
+
+// edit, delete buttons
+    echo "<div class='delete-button'>\n";
+    
+    echo "<a href='index.php?editid=".$row['id']."' ";
+    echo "onclick='javascript:add_new_note(\"on\");'";
+    echo "><span class='glyphicon glyphicon-pencil'></span></a>\n";
+    echo "&nbsp;\n";
+
+    echo "<a href='deletenote.php?id=".$row['id']."'><span class='glyphicon glyphicon-remove'></span></a>";
+    echo "</div>\n";
+
+
     echo "</div></div>\n";
+
 }
 
 ?>
 
 </div>
 
-<br/>
 <a class="btn btn-default" href="javascript:add_new_note('on');">Add new note</a>
 
 </div>
 
+<?php
+$editid = $_GET['editid'];
+
+if($editid > 0)
+{
+    $query = 'SELECT title, content, color FROM StickyNotes where id='.$editid.';';
+    if( !($result = $mysqli->query($query)) )
+    {
+        echo "Error! ".$query;
+        exit();
+    }
+    $row = $result->fetch_assoc();
+    $edit_title = $row['title'];
+    $edit_content = $row['content'];
+    $edit_color = $row['color'];
+}
+?>
 
 <div id="newform-bg"></div>
+
 <div id="newform">
-    <form action="" method="post">
+    <form action="addnote.php" method="post" onsubmit="return check_fields();">
     <div class="form-row">
        <label for="note-title">Title</label>
-       <input type="text" name="note-title" id="note-title" size="28">
+<?php
+if($editid > 0)
+{
+    echo '<input type="text" name="note-title" id="note-title" size="28" ';
+    echo 'value="';
+    echo $edit_title;
+    echo '">';
+}
+else
+    echo '<input type="text" name="note-title" id="note-title" size="28">';
+?>
     </div>
     <div class="form-row">
        <label for="note-content">Content</label>
