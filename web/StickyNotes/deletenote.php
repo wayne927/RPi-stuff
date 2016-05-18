@@ -16,6 +16,8 @@ if( !($result = $mysqli->query($query)) )
     exit();
 }
 
+$mysqli->close();
+
 header('Location: index.php');
 
 ?>

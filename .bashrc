@@ -124,4 +124,4 @@ alias tvoff="echo 'standby 0' | cec-client -s > /dev/null"
 alias tvon="echo 'on 0' | cec-client -s > /dev/null"
 
 alias setalarm="/home/pi/alarm/setalarm.bash"
-alias stopalarm="/home/pi/alarm/stopalarm.sh"
+alias stopalarm="/home/pi/alarm/stopalarm.bash"

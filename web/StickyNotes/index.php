@@ -60,9 +60,8 @@ while($row = $result->fetch_assoc())
 // edit, delete buttons
     echo "<div class='delete-button'>\n";
     
-    echo "<a href='index.php?editid=".$row['id']."' ";
-    echo "onclick='javascript:add_new_note(\"on\");'";
-    echo "><span class='glyphicon glyphicon-pencil'></span></a>\n";
+    echo "<a href='newnote.php?id=".$row['id']."'>";
+    echo "<span class='glyphicon glyphicon-pencil'></span></a>\n";
     echo "&nbsp;\n";
 
     echo "<a href='deletenote.php?id=".$row['id']."'><span class='glyphicon glyphicon-remove'></span></a>";
@@ -77,62 +76,10 @@ while($row = $result->fetch_assoc())
 
 </div>
 
-<a class="btn btn-default" href="javascript:add_new_note('on');">Add new note</a>
+<a class="btn btn-default" href="newnote.php">Add new note</a>
 
 </div>
 
-<?php
-$editid = $_GET['editid'];
-
-if($editid > 0)
-{
-    $query = 'SELECT title, content, color FROM StickyNotes where id='.$editid.';';
-    if( !($result = $mysqli->query($query)) )
-    {
-        echo "Error! ".$query;
-        exit();
-    }
-    $row = $result->fetch_assoc();
-    $edit_title = $row['title'];
-    $edit_content = $row['content'];
-    $edit_color = $row['color'];
-}
-?>
-
-<div id="newform-bg"></div>
-
-<div id="newform">
-    <form action="addnote.php" method="post" onsubmit="return check_fields();">
-    <div class="form-row">
-       <label for="note-title">Title</label>
-<?php
-if($editid > 0)
-{
-    echo '<input type="text" name="note-title" id="note-title" size="28" ';
-    echo 'value="';
-    echo $edit_title;
-    echo '">';
-}
-else
-    echo '<input type="text" name="note-title" id="note-title" size="28">';
-?>
-    </div>
-    <div class="form-row">
-       <label for="note-content">Content</label>
-       <textarea name="note-content" id="note-content" rows="8" cols="25"></textarea>
-    </div>
-    <div class="form-row">
-        <label for="note-color">Color</label>
-        <select name="note-color">
-            <option value="red">Red</option>
-            <option value="blue">Blue</option>
-            <option value="yellow">Yellow</option>
-        </select>
-    </div>
-    <button type="submit" class="btn btn-primary">Add note</button>
-    <a class="btn btn-default pull-right" href="javascript:add_new_note('off');">Cancel</a>
-    </form>
-</div>
 
 
 </body>
