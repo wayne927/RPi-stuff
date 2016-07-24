@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-extensions=(.py .pl .bash .csh .c .h .html .htm .css .php)
+extensions=(.py .pl .bash .csh .c .h .html .htm .css .php .js)
 
 backup_dir=( web alarm )
 
