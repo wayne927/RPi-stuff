@@ -1,0 +1,127 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Next Meet!</title>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="timepicker/jquery.timepicker.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+<script src="timepicker/jquery.timepicker.min.js"></script>
+
+
+<script>
+$( function() {
+
+    $("#datepicker").datepicker({dateFormat: "DD MM d, yy"});
+    $('#timepicker').timepicker();
+    
+    $('#other-location').hide();
+
+    $("input[name^=meet-location-other]").attr({size: '80'});
+    
+    $("#custom-text-field").hide();
+    $("#custom-text-button").click( function() {
+        $("#custom-text-field").toggle();
+    });
+
+});
+
+function checklocation()
+{
+    $('#other-location').hide();
+    if($("#meet-location-menu").val() == "other")
+    {
+        $('#other-location').show();
+    }
+}
+
+function checkfields()
+{
+    if($('#datepicker').val() == "")
+    {
+        alert('Missing date!');
+        return false;
+    }
+    
+    if($('#timepicker').val() == "")
+    {
+        alert('Missing time!');
+        return false;
+    }
+        
+    if($('#meet-location-menu').val() == "other")
+    {
+        if($("input[name=meet-location-other]").val() == "")
+        {
+            alert("Missing location!");
+            return false;
+        }
+        else if($("input[name=meet-location-other-url]").val() == "")
+        {
+            alert("Missing map URL!");
+            return false;
+        }
+    }
+    
+    return true;
+    
+}
+</script>
+
+<style>
+.label {
+    display: inline-block;
+    width: 80px;
+}
+
+.row {
+    margin-bottom: 10px;
+}
+
+body {
+    font-family: sans-serif;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>When/where is the next meet?</h1>
+
+<!--<form action="/cgi-bin/set_next_meeting.py" method="POST" onsubmit="return checkfields()">-->
+<form action="/cgi-bin/set_next_meeting.py" method="POST" onsubmit="return checkfields()">
+
+
+<div class="row"><div class="label">Date:</div><input type="text" name="meet-date" id="datepicker"></div>
+<div class="row"><div class="label">Time:</div><input type="text" name="meet-time" value="3:00pm" id="timepicker"></div>
+
+
+<div class="row"><div class="label">Location:</div>
+    <select name="meet-location" id="meet-location-menu" onchange="checklocation();">
+        <option value="UofT" selected>UofT</option>
+        <option value="YorkU">YorkU</option>
+        <option value="other">Other...</option>
+    </select>
+</div>
+
+<div id="other-location">
+    <div class="row"><div class="label">Location:</div><input type="text" name="meet-location-other"></div>
+    <div class="row"><div class="label">Map URL:</div><input type="text" name="meet-location-other-url"></div>
+</div>
+
+<div id="customtext">
+<a href="#" id="custom-text-button">Use Custom text:</a><br/>
+<!--<input type="text" id="custom-text-field" size="80">-->
+<textarea id="custom-text-field" rows="4" cols="40">haha</textarea>
+</div>
+
+<br/>
+
+<input type="submit" value="Submit">
+
+</form>
+
+</body>
+
+</html>
