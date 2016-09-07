@@ -5,6 +5,7 @@
 
 <style>
 body {
+    margin-top: 50px;
     text-align: center;
 }
 
@@ -14,6 +15,17 @@ body {
     font-family: sans-serif;
     text-align: center;
     border: 0px solid;
+}
+
+.box select {
+    font-size: 80px;
+    width: 200px;
+    text-align: center;
+}
+
+.box select:focus {
+    background-color: #FFFFBB;
+    
 }
 
 input[type=text]{
@@ -60,8 +72,18 @@ input[type=submit]:hover {
 <form action="/cgi-bin/alarm.py" method="GET">
 
 <div class="box">
-Hour<br/>
-<input type="text" name="alarm_hour" size=5>
+<!--Hour<br/>-->
+<!--<input type="text" name="alarm_hour" size=5>-->
+<select name="alarm_hour">
+<script>
+var i;
+for(i=0; i<24; i++)
+{
+    str = "<option value='"+i+"'>"+i+"</option>"
+    document.write(str);
+}
+</script>
+</select>
 </div>
 
 <div class="box">
@@ -69,8 +91,18 @@ Hour<br/>
 </div>
 
 <div class="box">
-Minute<br/>
-<input type="text" name="alarm_minute" size=5>
+<!--Minute<br/>-->
+<!--<input type="text" name="alarm_minute" size=5>-->
+<select name="alarm_minute">
+<script>
+var i;
+for(i=0; i<51; i+=10)
+{
+    str = "<option value='"+i+"'>"+i+"</option>"
+    document.write(str);
+}
+</script>
+</select>
 </div>
 <br>
 <br>

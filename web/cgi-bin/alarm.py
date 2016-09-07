@@ -6,13 +6,20 @@ import os
 import sys
 import subprocess
 
+# This is the server script controller that takes the input from the HTML form
+# in alarm.html and sends it to various system commands:
+#
+# To stop and remove an alarm: run stopalarm.bash
+#
+# To print the current crontab on the browser: call print_crontab() which calls "crontab -l"
+#
+# To set a new alarm: run setalarm.bash with the hour and minute taken from the form variables
+
 cgitb.enable()
 print "Content-type: text/html\n"
 print "<html><head><style> body {font-family: sans-serif; font-size:70px}"
 print "#time-box { display: inline-block; font-size: 80px; padding: 20px; background-color: #AAFFAA; }"
 print "</style></head><body>\n"
-
-#command = 'echo on 0 | cec-client -s > /dev/null'
 
 form = cgi.FieldStorage()
 
@@ -27,18 +34,12 @@ def print_crontab():
         print "Crontab empty."
 
 if(has_var("remove_alarm")):
-#    command = "crontab -r > /dev/null"
     command = "/home/pi/alarm/stopalarm.bash > /dev/null"
     os.system(command)
     print "Alarm removed!"
 
 elif(has_var("check_crontab")):
     print_crontab()
-#    try:
-#        output = subprocess.check_output(['crontab','-l'])
-#        print output.replace("\n", "<br>")
-#    except:
-#        print "Crontab empty."
 
 elif(has_var("alarm_hour") and has_var("alarm_minute")):
     hour = int(form['alarm_hour'].value)
