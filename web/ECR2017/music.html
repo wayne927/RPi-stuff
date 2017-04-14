@@ -1,0 +1,193 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Music upload - Canadian Nationals 2017</title>
+<link rel="stylesheet" type="text/css" href="style.css"/>
+<link rel="stylesheet" type="text/css" href="footer.css"/>
+<link rel="stylesheet" type="text/css" href="table.css"/>
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans|Oswald">
+<meta name="description" content="Canadian National Return Top Championship 2017" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="keywords" content="yo-yo, yoyo, yoyos, vancouver, yoyoing, canada, return top, competition, championship, contest, national, nats, nationals" />
+<meta property="og:image" content="fb_preview.png" />
+
+<script type="text/javascript">
+function displayFileName(id)
+{
+    var input = document.getElementById(id);
+    var str = "";
+    
+    if('files' in input)
+    {
+        if(input.files.length == 0)
+            str = "Please select a file.";
+        else
+            str = input.files[0].name;
+            //alert(input.files[0].name);
+    }
+    
+    var this_id = id + "-file";
+    document.getElementById(this_id).innerHTML = str;
+}
+
+function checkfields()
+{
+    if(document.getElementsByName("fname")[0].value == "" ||
+       document.getElementsByName("lname")[0].value == "" ||
+       document.getElementsByName("email")[0].value == "")
+    {
+        alert("Please fill in your registered name and email at the top.");
+        return false;
+    }
+    
+    if(document.getElementById("1a-prelim").value == "" &&
+       document.getElementById("1a-final").value == "" &&
+       document.getElementById("open-final").value == "")
+    {
+        alert("Please upload at least one music file.");
+        return false;
+    }
+
+    document.getElementById("patient_msg").style.visibility = "visible";
+    return true;
+}
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+$(document).ready( function() {
+    $("#sponsor-footer").load("footer.html", function(responseTxt, statusTxt, xhr) {
+        if(statusTxt == "error")
+            $("#sponsor-footer").html("Please turn on javascript for the best browsing experience.");
+    });
+});
+</script>
+
+<style>
+
+#form-container {
+    width: 500px;
+    margin: auto auto 30px auto;
+    
+}
+
+#form-container p {
+    background-color: #333333;
+    padding: 5px;
+    margin-top: 2px;
+}
+
+input[type=text] {
+    width: 100%;
+    font-size: 18px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 2px solid #CCCCCC;
+    margin-bottom: 15px;
+}
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+.inputfile + label {
+    padding: 5px 10px;
+    margin-right: 15px;
+    color: white;
+    background-color: #AA0000;
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 8px;
+    font-family: "Open Sans", sans-serif;
+    font-size: 16px;
+}
+.inputfile + label:hover {
+    background-color: #550000;
+    color: white;
+}
+
+#patient_msg {
+    visibility: hidden;
+    text-align: center;
+}
+
+</style>
+
+
+</head>
+
+<body>
+    <div id="menu">
+        <div id="menu-container">
+            <a href="index.html">About</a>
+            <a href="schedule.html">Schedule</a>
+            <a href="venue.html">Venue</a>
+            <a href="rules.html">Rules</a>
+            <a id="active" href="register.html">Register</a>
+        </div>
+    </div>
+    
+    <div id="content">
+
+    <h1>Music upload</h1>
+    
+    <p>First, please enter the competitor's information that you used in your registration so that we can identify you.</p>
+    
+    <form name="regForm" onsubmit="return checkfields();" action="/cgi-bin/register.pl" method="POST" enctype="multipart/form-data">
+    <div id="form-container">
+    
+    First name<br/><input type="text" name="fname">
+    Last name<br/><input type="text" name="lname">
+    Email<br/><input type="text" name="email">    
+    </div>
+        
+    <p>Next, please choose your music files (in either .mp3 or .wav formats). 
+    <table>
+        <tr><td>1A Preliminary</td><td>1 minute</td></tr>
+        <tr><td>1A Final</td><td>2 minutes</td></tr>
+        <tr><td>Open</td><td>2 minutes</td></tr>
+        </table>
+    <ul>
+        <li>If you are not entering some of the divisions, you can leave those fields blank.</li>
+        <li>If you are using the same song for more than one freestyle, choose the same file(s) again. Don't leave them blank.</li>
+        <li><span class="emphasis">Vocals containing offensive slurs or obscenities in any language will result in disqualification.</span></li>
+    </ul>
+    </p> 
+
+    <div id="form-container">
+    1A Preliminary (1 minute)
+    <p><input type="file" id="1a-prelim" class="inputfile" name="musicfile1aprelim" onchange="displayFileName('1a-prelim');">
+    <label for="1a-prelim">Browse</label><span id="1a-prelim-file">No file chosen</span>
+    </p>
+    
+    1A Final (2 minutes)
+    <p><input type="file" id="1a-final" class="inputfile" name="musicfile1afinal" onchange="displayFileName('1a-final');">
+    <label for="1a-final">Browse</label><span id="1a-final-file">No file chosen</span>
+    </p>
+
+    Open (2 minutes)
+    <p><input type="file" id="open-final" class="inputfile" name="musicfileopen" onchange="displayFileName('open-final');">
+    <label for="open-final">Browse</label><span id="open-final-file">No file chosen</span>
+    </p>   
+    </div>
+    
+    <div align="center">
+        <input type="submit" value="Upload" class="register_button">
+    </div>
+    
+    <p id="patient_msg">(Please be patient while the files get uploaded...)</p>
+    
+    </div>
+    
+    </form>
+    
+    <div id="sponsor-footer">
+    </div>
+    
+</body>
+
+</html>

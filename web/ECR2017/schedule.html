@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Schedule - Eastern Canadian Regionals 2017</title>
+<link rel="stylesheet" type="text/css" href="style.css"/>
+<link rel="stylesheet" type="text/css" href="table.css"/>
+<link rel="stylesheet" type="text/css" href="footer.css"/>
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans|Oswald">
+<meta name="description" content="Eastern Canadian Regionals 2017" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="keywords" content="yo-yo, yoyo, yoyos, toronto, yoyoing, canada, ontario, return top, competition, championship, contest, regional, regionals, eastern" />
+<meta property="og:image" content="http://www.easterncanadianregionals.com/FBpreview.jpg" />
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+$(document).ready( function() {
+    $("#sponsor-footer").load("footer.html", function(responseTxt, statusTxt, xhr) {
+        if(statusTxt == "error")
+            $("#sponsor-footer").html("Please turn on javascript for the best browsing experience.");
+    });
+});
+</script>
+
+</head>
+
+<body>
+    <div id="menu">
+        <div id="menu-container">
+            <a href="index.html">About</a>
+            <a id="active" href="schedule.html">Schedule</a>
+            <a href="venue.html">Venue</a>
+            <a href="rules.html">Rules</a>
+            <a href="register.html">Register</a>
+        </div>
+    </div>
+    
+    <div id="content">
+        <h1>*Tentative* Schedule</h1>
+        <table>
+            <tr><td>10:00 - 11:00</td><td>Door opens</td></tr>
+            <tr><td>11:00 - 12:30</td><td>1A Preliminary freestyles</td></tr>
+            <tr><td>12:30 - 13:30</td><td>Lunch</td></tr>
+            <tr><td>13:30 - 14:00</td><td>Open division freestyles</td></tr>
+            <tr><td>14:30 - 15:30</td><td>1A Final freestyles</td></tr>
+            <tr><td>16:00</td><td>Results</td></tr>
+        </table>
+        
+        <!--
+        <h1>Submitting your waiver form</h1>
+        <p><span class="emphasis">ALL contestants in all divisions</span> need to sign and submit a waiver form during registration. You can bring your own copy with you, or you can sign one at the registration desk.
+        <div align="center">
+        <a href="Nationals-2017-Waiver.pdf"><div id="waiver-form-button">Download the waiver form</div></a>
+        </div>-->
+    </div>
+    
+    <div id="sponsor-footer">
+    </div>
+    
+</body>
+
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Registration (Deadline: March 14) - Canadian Nationals 2017</title>
+<link rel="stylesheet" type="text/css" href="style.css"/>
+<link rel="stylesheet" type="text/css" href="table.css"/>
+<link rel="stylesheet" type="text/css" href="register.css"/>
+<link rel="stylesheet" type="text/css" href="footer.css"/>
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans|Oswald">
+<meta name="description" content="Canadian National Return Top Championship 2017" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="keywords" content="yo-yo, yoyo, yoyos, vancouver, yoyoing, canada, return top, competition, championship, contest, national, nats, nationals" />
+<meta property="og:image" content="http://canadanationals.com/fb_preview.png" />
+
+<script type="text/javascript">
+function getPrice()
+{
+    var divs = document.getElementsByName("division");
+    var total = 0;
+    var total_str = "";
+    
+    var div_str = "Divisions - ";
+
+    
+    divs[0].disabled = false;
+    divs[1].disabled = false;
+    div_str = "Divisions - ";
+    total_str = "$" + total + " CAD";
+
+    
+    if(divs[0].checked && divs[1].checked)
+    {
+        total = 20;
+        total_str = "<span style='text-decoration:line-through;'>$30</span> <span style='color:#00FF00;'>$20 CAD</span>";
+        
+        var open_style = document.getElementsByName("open-style");
+        div_str = div_str + "1A, Open (" + open_style[0].value + ")";
+    }
+    else if(divs[0].checked)
+    {
+        total = 15;
+        div_str = div_str + "1A"
+        total_str = "$" + total + " CAD";
+    }
+    else if(divs[1].checked)
+    {
+        total = 15;
+        total_str = "$" + total + " CAD";
+        
+        var open_style = document.getElementsByName("open-style");
+        div_str = div_str + "Open (" + open_style[0].value + ")";        
+    }
+    
+    var item_name = document.getElementsByName("item_name");
+    item_name[0].value = div_str;
+    
+    document.getElementById("amount-display").innerHTML = total_str;
+    
+    var a = document.getElementsByName("amount");
+    a[0].value = total;
+    
+    return total;
+}
+
+function checkstyle()
+{
+    if(getPrice() <= 0)
+    {
+        alert("Please select at least one division to enter.");
+        return false;
+    }
+
+    var open_div = document.getElementById("open_div");
+    
+    var style = document.getElementsByName("open-style");
+    
+    if(open_div.checked && style[0].value=="INVALID")
+    {
+        alert("Please select a style for your Open division routine.");
+        return false;
+    }
+    
+    return true;
+}
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+$(document).ready( function() {
+    $("#sponsor-footer").load("footer.html", function(responseTxt, statusTxt, xhr) {
+        if(statusTxt == "error")
+            $("#sponsor-footer").html("Please turn on javascript for the best browsing experience.");
+    });
+});
+</script>
+
+</head>
+
+<body onload="getPrice();">
+    <div id="menu">
+        <div id="menu-container">
+            <a href="index.html">About</a>
+            <a href="schedule.html">Schedule</a>
+            <a href="venue.html">Venue</a>
+            <a href="rules.html">Rules</a>
+            <a id="active" href="register.html">Register</a>
+        </div>
+    </div>
+    
+    <div id="content">
+    
+    <h1>Register</h1>
+    <p>Online registration is mandatory for <span class="emphasis">ALL contestants</span> in all divisions before the deadline. Spectators, including friends and family members of contestants, may enter the contest hall for free.</p> 
+        
+    <div id="register-box">
+    <p>Deadline for registration and music upload:<br/>
+    May 12, 2017</p>
+    </div>
+    
+    <h1>Registration details coming soon!</h1>
+    
+    <h2>Freestyle lengths</h2>
+    <table>
+        <tr><td>1A Preliminary</td><td>1 minute</td></tr>
+        <tr><td>1A Final</td><td>2 minutes</td></tr>
+        <tr><td>Open</td><td>2 minutes</td></tr>
+    </table>
+    
+    <br/>
+    
+    <h2>Registration fees</h2>
+    <table>
+        <tr><td>1A</td><td>$15 CAD</td></tr>
+        <tr><td>Open</td><td>$15 CAD</td></tr>
+        <tr><td>1A + Open</td><td>$20 CAD</td></tr>
+    </table>
+    
+    
+    
+    </div>
+    
+    <div id="sponsor-footer">
+    </div>
+    
+</body>
+
+</html>
+

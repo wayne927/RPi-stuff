@@ -1,0 +1,19 @@
+#sponsor-footer {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    background-color: #222222;
+    text-align: center;
+}
+
+#sponsor-footer img {
+    margin: 10px 10px 10px 10px;
+    vertical-align: middle;
+    opacity: 0.8;
+}
+
+#sponsor-footer img:hover {
+    opacity: 1.0;
+}

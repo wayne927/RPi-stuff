@@ -1,0 +1,10 @@
+td {
+    padding: 7px 20px;
+    margin: 0;
+}
+tr:nth-child(odd) {
+    background-color: #333333;
+}
+table {
+    margin: auto;
+}
