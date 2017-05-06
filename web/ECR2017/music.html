@@ -1,15 +1,15 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Music upload - Canadian Nationals 2017</title>
+<title>Music upload - Eastern Canadian Regionals 2017</title>
 <link rel="stylesheet" type="text/css" href="style.css"/>
 <link rel="stylesheet" type="text/css" href="footer.css"/>
 <link rel="stylesheet" type="text/css" href="table.css"/>
 <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans|Oswald">
-<meta name="description" content="Canadian National Return Top Championship 2017" />
+<meta name="description" content="Eastern Canadian Regionals 2017" />
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-<meta name="keywords" content="yo-yo, yoyo, yoyos, vancouver, yoyoing, canada, return top, competition, championship, contest, national, nats, nationals" />
-<meta property="og:image" content="fb_preview.png" />
+<meta name="keywords" content="yo-yo, yoyo, yoyos, toronto, yoyoing, canada, ontario, return top, competition, championship, contest, regional, regionals, eastern" />
+<meta property="og:image" content="http://www.easterncanadianregionals.com/FBpreview.jpg" />
 
 <script type="text/javascript">
 function displayFileName(id)
@@ -135,14 +135,15 @@ input[type=text] {
 
     <h1>Music upload</h1>
     
-    <p>First, please enter the competitor's information that you used in your registration so that we can identify you.</p>
+    <p>First, please enter the competitor's information so that we can identify you.</p>
     
     <form name="regForm" onsubmit="return checkfields();" action="/cgi-bin/register.pl" method="POST" enctype="multipart/form-data">
     <div id="form-container">
     
-    First name<br/><input type="text" name="fname">
-    Last name<br/><input type="text" name="lname">
-    Email<br/><input type="text" name="email">    
+    Competitor's first name<br/><input type="text" name="fname">
+    Competitor's last name<br/><input type="text" name="lname">
+    Competitor's e-mail<br/><input type="text" name="email">    
+    Did you pay your registration fee using the competitor's e-mail? If not, what e-mail did you use?<br/><input type="text" name="paidemail">
     </div>
         
     <p>Next, please choose your music files (in either .mp3 or .wav formats). 
