@@ -54,6 +54,14 @@ elif(has_var("alarm_hour") and has_var("alarm_minute")):
         print "<br>"
         print_crontab()
 
+elif(has_var("tv_on")):
+    command = "echo 'on 0' | cec-client -s > /dev/null; sleep 10; echo 'as' | cec-client -s > /dev/null"
+    os.system(command)
+    print "TV on!"
+elif(has_var("tv_off")):
+    command = "echo 'standby 0' | cec-client -s > /dev/null"
+    os.system(command)
+    print "TV off!"
 else:
     print "Input error. Try again."
 

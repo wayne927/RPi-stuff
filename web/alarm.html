@@ -48,10 +48,17 @@ input[type=submit]:hover {
     background-color: #BBBBFF;
 }
 
-#remove-alarm {
+#tv-on {
+    background-color: #AAFFAA;
+}
+#tv-on:hover {
+    background-color: #BBFFBB;
+}
+
+#remove-alarm, #tv-off {
     background-color: #FFAAAA;
 }
-#remove-alarm:hover {
+#remove-alarm:hover, #tv-off:hover {
     background-color: #FFBBBB;
 }
 #check-crontab {
@@ -125,6 +132,20 @@ for(i=0; i<51; i+=10)
 <input type="checkbox" checked name="check_crontab" hidden>
 <input type="submit" value="Check crontab" id="check-crontab">
 </form>
+
+<br>
+<br>
+
+<form action="/cgi-bin/alarm.py" method="GET">
+<input type="checkbox" checked name="tv_on" hidden>
+<input type="submit" value="TV on" id="tv-on">
+</form>
+
+<form action="/cgi-bin/alarm.py" method="GET">
+<input type="checkbox" checked name="tv_off" hidden>
+<input type="submit" value="TV off" id="tv-off">
+</form>
+
 
 </body>
 
