@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-extensions=(.py .pl .bash .csh .c .h .html .htm .css .php .js)
+extensions=(.py .pl .bash .csh .sh .c .h .html .htm .css .php .js)
 
 backup_dir=( web alarm )
 
@@ -10,8 +10,6 @@ backup_dest=/home/pi/code_backup
 for d in ${backup_dir[*]}; do
   if [ ! -e $backup_dest/$d ]; then
     mkdir $backup_dest/$d
-#  else
-#    echo "$d exists"
   fi
 
   for e in ${extensions[*]}; do
