@@ -1,0 +1,201 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Registration (Deadline: March 14) - Canadian Nationals 2017</title>
+<link rel="stylesheet" type="text/css" href="style.css"/>
+<link rel="stylesheet" type="text/css" href="register.css"/>
+<link rel="stylesheet" type="text/css" href="footer.css"/>
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans|Oswald">
+<meta name="description" content="Canadian National Return Top Championship 2017" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="keywords" content="yo-yo, yoyo, yoyos, vancouver, yoyoing, canada, return top, competition, championship, contest, national, nats, nationals" />
+<meta property="og:image" content="http://canadanationals.com/fb_preview.png" />
+
+<script type="text/javascript">
+function getPrice()
+{
+    var divs = document.getElementsByName("division");
+    var total = 0;
+    var total_str = "";
+    
+    var div_str = "Divisions - ";
+
+    
+    divs[0].disabled = false;
+    divs[1].disabled = false;
+    div_str = "Divisions - ";
+    total_str = "$" + total + " CAD";
+
+    
+    if(divs[0].checked && divs[1].checked)
+    {
+        total = 20;
+        total_str = "<span style='text-decoration:line-through;'>$30</span> <span style='color:#00FF00;'>$20 CAD</span>";
+        
+        var open_style = document.getElementsByName("open-style");
+        div_str = div_str + "1A, Open (" + open_style[0].value + ")";
+    }
+    else if(divs[0].checked)
+    {
+        total = 15;
+        div_str = div_str + "1A"
+        total_str = "$" + total + " CAD";
+    }
+    else if(divs[1].checked)
+    {
+        total = 15;
+        total_str = "$" + total + " CAD";
+        
+        var open_style = document.getElementsByName("open-style");
+        div_str = div_str + "Open (" + open_style[0].value + ")";        
+    }
+    
+    var item_name = document.getElementsByName("item_name");
+    item_name[0].value = div_str;
+    
+    document.getElementById("amount-display").innerHTML = total_str;
+    
+    var a = document.getElementsByName("amount");
+    a[0].value = total;
+    
+    return total;
+}
+
+function checkstyle()
+{
+    if(getPrice() <= 0)
+    {
+        alert("Please select at least one division to enter.");
+        return false;
+    }
+
+    var open_div = document.getElementById("open_div");
+    
+    var style = document.getElementsByName("open-style");
+    
+    if(open_div.checked && style[0].value=="INVALID")
+    {
+        alert("Please select a style for your Open division routine.");
+        return false;
+    }
+    
+    return true;
+}
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+$(document).ready( function() {
+    $("#sponsor-footer").load("footer.html", function(responseTxt, statusTxt, xhr) {
+        if(statusTxt == "error")
+            $("#sponsor-footer").html("Please turn on javascript for the best browsing experience.");
+    });
+});
+</script>
+
+</head>
+
+<body onload="getPrice();">
+    <div id="menu">
+        <div id="menu-container">
+            <a href="index.html">About</a>
+            <a href="schedule.html">Schedule</a>
+            <a href="venue.html">Venue</a>
+            <a href="rules.html">Rules</a>
+            <a id="active" href="register.html">Register</a>
+        </div>
+    </div>
+    
+    <div id="content">
+    
+    <h1>Register</h1>
+    <p>Online registration is mandatory for <span class="emphasis">ALL contestants</span> in all divisions before the deadline. Spectators, including friends and family members of contestants, may enter the contest hall for free.</p> 
+        
+    <div id="register-box">
+    <p>Deadline for registration and music upload:<br/>
+    May 12, 2017</p>
+    </div>
+    
+    <h1>Step 1: Registration fee</h1>
+    <p>Select the division(s) you'd like to compete in. When you click "Register", you will be brought to a Paypal checkout page to send payment.</p>
+    <ul>
+    <li>If your billing name is not the competitor's name (ie. you are paying for someone else), please indicate the competitor's name in either the "shipping address" or "note to seller" section of your payment.</li>
+    <li>If you cannot use Paypal, please contact the organizer before the registration deadline. We do not accept cash payment at the event.</li>
+    </ul>
+    <form onsubmit="return checkstyle();" target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+
+    <input type="hidden" name="business" value="wayne.ngan@gmail.com">
+
+    <input type="hidden" name="cmd" value="_xclick">
+    
+    <div class="fees-row">
+    <input type="checkbox" name="division" id="1a_div" onclick="getPrice();"><div class="fees-cell">1A</div> $15 CAD
+    </div>
+    <div class="fees-row">
+    <input type="checkbox" name="division" id="open_div" onclick="getPrice();"><div class="fees-cell">Open&nbsp;
+    <select name="open-style">
+        <option value="INVALID">Style</option>
+        <option value="2A">2A</option>
+        <option value="3A">3A</option>
+        <option value="4A">4A</option>
+        <option value="5A">5A</option>
+    </select>
+    </div>
+    $15 CAD
+    </div>
+    <div class="fees-total">
+    <div class="fees-cell">Total</div>
+    <span id="amount-display">$0 CAD</span>
+    </div>
+
+    <br/>
+    
+    <input type="hidden" name="item_name" value="INVALID REGISTRATION">
+    <input type="hidden" name="amount" value="0">
+    
+    <input type="hidden" name="currency_code" value="CAD">
+
+    <div align="center">
+    <script type="text/javascript">
+    <!--
+        document.write('<input type="submit" class="register_button" value="Register">');
+    //-->
+    </script>
+    <noscript>
+        <div class="register_button" id="disabled">Register</div>
+        <p><span style="font-weight:bold;color:red;">PLEASE ENABLE JAVASCRIPT IN ORDER TO REGISTER.</span></p>
+    </noscript>
+    </div>
+    </form>
+    
+
+
+    <h1>Step 2: Music upload</h1>
+    <p>After you have paid your registration fees, please click the button below to proceed to the music upload page.</p>
+    <div align="center">
+    <a href="music.html"><div id="music-button">Upload music</div></a>
+    </div>
+    
+    <!--
+    <h1>Step 3: Waiver form</h1>
+    <p>Please print and sign the following waiver form, and submit it at the registration desk during the registration hour (see <a href="schedule.html">schedule</a>).</p>
+    <div align="center">
+    <a href="Nationals-2017-Waiver.pdf"><div id="waiver-form-button">Download the waiver form</div></a>
+    </div>-->
+    
+    
+    <h1>That's it!</h1>
+    <p>If you have paid your fees and uploaded your music, then your registration is complete. Good luck!! We look forward to seeing you on stage on May 20.</p>
+    
+    <p>Want an idea who else might be coming? Make sure to check out our <a href="https://www.facebook.com/events/1138446676265607/" target="_blank">Facebook event</a>.</p>
+    
+    
+    </div>
+    
+    <div id="sponsor-footer">
+    </div>
+    
+</body>
+
+</html>
+
