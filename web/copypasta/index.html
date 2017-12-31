@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+<title>Copypasta</title>
+<meta charset="utf-8" />
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+<script type="text/javascript">
+$(document).ready( function() {
+    $("#pastabox").load("pasta.txt", function(responseTxt, statusTxt, xhr) {});
+ 
+    $("#pastabox").ready( function() {
+        $("#pastabox").focus(function() {
+             var $this = $(this);
+             $this.select();
+         
+             // Work around Chrome's little problem
+             $this.mouseup(function() {
+                 // Prevent further mouseup intervention
+                 $this.unbind("mouseup");
+                 return false;
+             });
+         });
+    });
+});
+
+
+
+</script>
+
+<style>
+textarea {
+    font-size: 20px;
+}
+input[type=submit] {
+    background-color: #AAAAFF;
+    font-size: 30px;
+    padding: 10px 20px;
+}
+
+button {
+    background-color: #AAFFAA;
+    font-size: 30px;
+    padding: 10px 20px;
+}
+</style>
+
+</head>
+
+<body>
+
+<form action="/cgi-bin/savepasta.py" method="POST">
+    <p><textarea rows="10" cols="50" name="pasta" id="pastabox"></textarea></p>
+    <br/>
+    <p><input type="submit" value="Save"></p>
+</form>
+
+
+</body>
+
+</html>

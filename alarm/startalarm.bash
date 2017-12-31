@@ -1,5 +1,20 @@
 #!/bin/bash
 
+alarmpath=/home/pi/alarm
+
+# detect if the TV is connected
+num=$( echo "scan" | cec-client -s -d 1 | grep TV | wc -l )
+if [ "$num" -eq "0" ]; then
+    echo "TV is not connected! Sending email."
+
+    logfile=$alarmpath/scanlog_$(date "+%Y-%m-%d_%H.%M")
+    echo "scan" | cec-client -s > $logfile
+    $alarmpath/sendemail.sh $logfile
+    rm $logfile
+fi
+
+# even if the TV is not on, don't stop trying anyway
+
 # turn on the TV
 echo "on 0" | cec-client -s > /dev/null
 
