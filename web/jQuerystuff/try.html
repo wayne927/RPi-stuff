@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+
+function loadData() {
+    var str;
+    $.get("count.txt", function(data, status){
+        //alert(data);
+        str = data;
+        str = str.split("\n").join("<br>");
+        $("#content").html(str);
+    });
+}
+
+$(document).ready(function(){
+    loadData();
+    setInterval(loadData, 100);
+});
+</script>
+</head>
+<body>
+
+
+<div id="content"></div>
+
+</body>
+</html>
+
+
