@@ -3,7 +3,7 @@
 
 extensions=(.py .pl .bash .csh .sh .c .h .html .htm .css .php .js)
 
-backup_dir=( web alarm )
+backup_dir=( web alarm twitter_app )
 
 backup_dest=/home/pi/code_backup
 
