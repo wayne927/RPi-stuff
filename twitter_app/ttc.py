@@ -80,6 +80,8 @@ for s in statuses :
         tweet_out.write(s.text + "\n")
         tweet_out.close()
 
+        os.command("sendemail.sh email.txt")
+
 
 
     
