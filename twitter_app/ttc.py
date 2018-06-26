@@ -82,8 +82,3 @@ for s in statuses :
 
         os.command("sendemail.sh email.txt")
 
-
-
-    
-
-
