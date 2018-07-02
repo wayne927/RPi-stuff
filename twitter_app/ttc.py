@@ -17,9 +17,9 @@ def getLocalTime(date_in) :
     
 
 def shouldPrintTweet(status) :
-    # Don't care if it's weekend
+    # Don't care if it's weekend (note: weekday() is 0 for Monday)
     local_time = getLocalTime(status.created_at)
-    if local_time.weekday() > 5 : 
+    if local_time.weekday() >= 5 : 
         return False
 
     tweet = ''.join(status.text.lower().split())
@@ -46,7 +46,7 @@ def shouldPrintTweet(status) :
 
 def printTweet(status) :
     local_time = getLocalTime(status.created_at)
-    print(calendar.day_name[local_time.weekday()] + " " +str(local_time))
+    print(str(local_time.weekday()) + " " + calendar.day_name[local_time.weekday()] + " " +str(local_time))
     print(status.text + "\n")
 
 keys = readKeys('binkeys.apikey')
@@ -56,7 +56,7 @@ api = twitter.Api(consumer_key=keys[0],
                   access_token_key=keys[2],
                   access_token_secret=keys[3])
 
-statuses = api.GetUserTimeline(screen_name='TTCnotices')
+statuses = api.GetUserTimeline(screen_name='TTCnotices', count=100)
 
 most_recent_status = statuses[0]
 
