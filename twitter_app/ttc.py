@@ -96,6 +96,9 @@ for s in statuses :
     if shouldPrintTweet(s) :
         output = printTweet(s, output)
 
+if not output :
+    sys.exit()
+
 timenow = datetime.datetime.now()
 email_subject = 'TTC Update: ' + timenow.strftime('%a %b %d %H:%M:%S')
 send_gmail(email_subject, output)
