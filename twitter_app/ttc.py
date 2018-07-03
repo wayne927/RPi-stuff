@@ -7,9 +7,11 @@ import calendar
 import os
 import sys
 from readkeys import *
+from send_gmail import *
 
 def getLocalTime(date_in) :
     utc = datetime.datetime.strptime(date_in, '%a %b %d %H:%M:%S +0000 %Y')
+    # TODO: deal with daylight saving time...
     offset = -5
     local_time = utc + timedelta(hours=offset)
 
@@ -22,6 +24,7 @@ def shouldPrintTweet(status) :
     if local_time.weekday() >= 5 : 
         return False
 
+    # convert to lower cases, strip all white spaces
     tweet = ''.join(status.text.lower().split())
 
     include_any = ['line1', 'line2', 'line4']
@@ -44,10 +47,14 @@ def shouldPrintTweet(status) :
 
     return True
 
-def printTweet(status) :
+def printTweet(status, output) :
     local_time = getLocalTime(status.created_at)
-    print(str(local_time.weekday()) + " " + calendar.day_name[local_time.weekday()] + " " +str(local_time))
-    print(status.text + "\n")
+    out = ""
+    #out = out + str(status.id) + '\n'
+    out = out + calendar.day_name[local_time.weekday()] + " "
+    out = out + str(local_time) + '\n' + status.text + '\n\n'
+    
+    return output + out
 
 keys = readKeys('binkeys.apikey')
 
@@ -56,15 +63,41 @@ api = twitter.Api(consumer_key=keys[0],
                   access_token_key=keys[2],
                   access_token_secret=keys[3])
 
-statuses = api.GetUserTimeline(screen_name='TTCnotices', count=100)
+# read the most recent status (MRS) id that we got last time
+try :
+    fileMRS = open('mrs.txt', 'r')
+    MRS_id = int(fileMRS.readline())
+    fileMRS = fileMRS.close()
+    print('Most recent status ID read from file = ' + str(MRS_id))
+except :
+    # File not found? Bad id? Meh
+    MRS_id = 0
 
-most_recent_status = statuses[0]
+if MRS_id == 0 :
+    print('MRS ID invalid. Just read the last 100.')
+    statuses = api.GetUserTimeline(screen_name='TTCnotices', count=100)
+    MRS_id = statuses[0].id
+else :
+    statuses = api.GetUserTimeline(screen_name='TTCnotices', since_id=MRS_id)
+    print('Number of statuses since last MRS = ' + str(len(statuses)))
+    if len(statuses) == 0 :
+        sys.exit()
+    else :
+        MRS_id = statuses[0].id
 
-print("Most recent tweet ID: " + str(most_recent_status.id))
+fileMRS = open('mrs.txt', 'w')
+fileMRS.write(str(MRS_id))
+fileMRS.close()
+
+output = ""
 
 for s in statuses :
     tweet = ''.join(s.text.lower().split())
-
     if shouldPrintTweet(s) :
-        printTweet(s)
+        output = printTweet(s, output)
 
+timenow = datetime.datetime.now()
+email_subject = 'TTC Update: ' + timenow.strftime('%a %b %d %H:%M:%S')
+send_gmail(email_subject, output)
+
+print(output)
