@@ -67,7 +67,7 @@ api = twitter.Api(consumer_key=keys[0],
 try :
     fileMRS = open('mrs.txt', 'r')
     MRS_id = int(fileMRS.readline())
-    fileMRS = fileMRS.close()
+    fileMRS.close()
     print('Most recent status ID read from file = ' + str(MRS_id))
 except :
     # File not found? Bad id? Meh
