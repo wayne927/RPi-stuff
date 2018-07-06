@@ -19,13 +19,9 @@ def getLocalTime(date_in) :
     
 
 def shouldPrintTweet(status) :
-    debug_str = str(status.id) + ' '
-
     # Don't care if it's weekend (note: weekday() is 0 for Monday)
     local_time = getLocalTime(status.created_at)
     if local_time.weekday() >= 5 : 
-        debug_str = debug_str + 'weekend'
-        print(debug_str)
         return False
 
     # convert to lower cases, strip all white spaces
@@ -43,18 +39,12 @@ def shouldPrintTweet(status) :
 
     # Doesn't have any include keywords. Don't need to filter excludes
     if inc == False :
-        debug_str = debug_str + 'keyword'
-        print(debug_str)
         return False
 
     for w in exclude_all :
         if w in tweet :
-            debug_str = debug_str + 'excluded'
-            print(debug_str)
             return False
 
-    debug_str = debug_str + 'y'
-    print(debug_str)
     return True
 
 def printTweet(status, output) :
@@ -74,34 +64,35 @@ api = twitter.Api(consumer_key=keys[0],
                   access_token_secret=keys[3])
 
 # read the most recent status (MRS) id that we got last time
-try :
-    fileMRS = open('mrs.txt', 'r')
-    MRS_id = int(fileMRS.readline())
-    fileMRS.close()
-except :
-    # File not found? Bad id? Meh
-    MRS_id = 0
+# try :
+#     fileMRS = open('mrs.txt', 'r')
+#     MRS_id = int(fileMRS.readline())
+#     fileMRS.close()
+#     print('Most recent status ID read from file = ' + str(MRS_id))
+# except :
+#     # File not found? Bad id? Meh
+#     MRS_id = 0
+
+MRS_id = 1014528457500385280
 
 if MRS_id == 0 :
-    # MRS ID invalid. Just read the last 100
+    print('MRS ID invalid. Just read the last 100.')
     statuses = api.GetUserTimeline(screen_name='TTCnotices', count=100)
     MRS_id = statuses[0].id
 else :
-    statuses = api.GetUserTimeline(screen_name='TTCnotices', since_id=MRS_id, count=100)
-    if len(statuses) > 0 :
+    statuses = api.GetUserTimeline(screen_name='TTCnotices', since_id=MRS_id, count=1000)
+    print('Number of statuses since last MRS = ' + str(len(statuses)))
+    if len(statuses) == 0 :
+        sys.exit()
+    else :
         MRS_id = statuses[0].id
 
-fileMRS = open('mrs.txt', 'w')
-fileMRS.write(str(MRS_id))
-fileMRS.close()
-
-timenow =  datetime.datetime.now().strftime('%b %d %H:%M')
-print(timenow + '  MRS=' + str(MRS_id) + '  len=' + str(len(statuses)))
-
-if len(statuses) == 0 :
-    sys.exit()
+# fileMRS = open('mrs.txt', 'w')
+# fileMRS.write(str(MRS_id))
+# fileMRS.close()
 
 output = ""
+
 for s in statuses :
     tweet = ''.join(s.text.lower().split())
     if shouldPrintTweet(s) :
@@ -110,7 +101,8 @@ for s in statuses :
 if not output :
     sys.exit()
 
-email_subject = 'TTC Update: ' + datetime.datetime.now().strftime('%a %b %d %H:%M:%S')
-send_gmail(email_subject, output)
+#timenow = datetime.datetime.now()
+#email_subject = 'TTC Update: ' + timenow.strftime('%a %b %d %H:%M:%S')
+#send_gmail(email_subject, output)
 
-#print(output)
+print(output)
