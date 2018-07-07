@@ -3,6 +3,7 @@
 import twitter
 import datetime
 from datetime import timedelta
+import pytz
 import calendar
 import os
 import sys
@@ -12,8 +13,14 @@ from send_gmail import *
 def getLocalTime(date_in) :
     utc = datetime.datetime.strptime(date_in, '%a %b %d %H:%M:%S +0000 %Y')
     # TODO: deal with daylight saving time...
-    offset = -5
-    local_time = utc + timedelta(hours=offset)
+    #offset = -5
+    #local_time = utc + timedelta(hours=offset)
+
+    utc_tz = pytz.timezone('UTC')
+    eastern_tz = pytz.timezone('US/Eastern')
+    
+    utc_time = utc_tz.localize(utc)
+    local_time = utc_time.astimezone(eastern_tz)
 
     return local_time
     
@@ -59,10 +66,10 @@ def shouldPrintTweet(status) :
 
 def printTweet(status, output) :
     local_time = getLocalTime(status.created_at)
+    date_fmt = '%A %b-%d  %H:%M'
     out = ""
     #out = out + str(status.id) + '\n'
-    out = out + calendar.day_name[local_time.weekday()] + " "
-    out = out + str(local_time) + '\n' + status.text + '\n\n'
+    out = out + local_time.strftime(date_fmt) + '\n' + status.text + '\n\n'
     
     return output + out
 
@@ -95,7 +102,7 @@ fileMRS = open('mrs.txt', 'w')
 fileMRS.write(str(MRS_id))
 fileMRS.close()
 
-timenow =  datetime.datetime.now().strftime('%b %d %H:%M')
+timenow = datetime.datetime.now().strftime('%a %b-%d  %H:%M')
 print(timenow + '  MRS=' + str(MRS_id) + '  len=' + str(len(statuses)))
 
 if len(statuses) == 0 :
@@ -110,7 +117,7 @@ for s in statuses :
 if not output :
     sys.exit()
 
-email_subject = 'TTC Update: ' + datetime.datetime.now().strftime('%a %b %d %H:%M:%S')
+email_subject = 'TTC Update: ' + timenow
 send_gmail(email_subject, output)
 
 #print(output)
