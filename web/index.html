@@ -5,6 +5,17 @@
 
 <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans|Oswald|Roboto+Condensed" />
 
+<script>
+function shutdown_confirm() {
+    var rc = confirm("Shutting down now - are you sure?");
+    if (rc == true) {
+        window.location.href = "/cgi-bin/shutdown.py";
+    } else {
+        return;
+    }
+}
+</script>
+
 <style>
 body {
     margin: 20px;
@@ -16,6 +27,12 @@ h1, h2 {
     font-family: Oswald;
 }
 
+#shutdownlink {
+    line-height: 100px;
+    color: red;
+    font-weight: bold;
+    cursor: pointer;
+}
 
 </style>
 
@@ -31,7 +48,7 @@ h1, h2 {
 <p><a href="PicTransfer/">PicTransfer</a></p>
 <p><a href="StickyNotes/">Sticky Notes</a></p>
 
-
+<p><a id="shutdownlink" onclick="shutdown_confirm()">shutdown</button></p>
 
 
 </body>
