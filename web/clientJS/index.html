@@ -1,0 +1,55 @@
+<html>
+<head>
+<script src="client.min.js"></script>
+
+<script>
+function showFP() {
+    var client = new ClientJS()
+    var fingerprint = client.getFingerprint();
+
+    var user_agent = client.getUserAgent();
+    var screen_print = client.getScreenPrint();
+    var color_depth = client.getColorDepth();
+    var current_resolution = client.getCurrentResolution();
+    var available_resolution = client.getAvailableResolution();
+    var xdpi = client.getDeviceXDPI();
+    var ydpi = client.getDeviceYDPI();
+    var plugins = client.getPlugins();
+    var fonts = client.getFonts();
+    var local_storage = client.isLocalStorage();
+    var session_storage = client.isSessionStorage();
+    var timezone = client.getTimeZone();
+    var language = client.getLanguage();
+    var system_language = client.getSystemLanguage();
+    var cookie = client.isCookie();
+    var canvas_print = client.getCanvasPrint();
+
+    document.write(fingerprint + "<br/><br/>");
+    
+    document.write(user_agent + "<br/>");
+    document.write(screen_print + "<br/>");
+    document.write(color_depth + "<br/>");
+    document.write(current_resolution + "<br/>");
+    document.write(available_resolution + "<br/>");
+    document.write(xdpi + "<br/>");
+    document.write(ydpi + "<br/>");
+    document.write(plugins + "<br/>");
+    document.write(fonts + "<br/>");
+    document.write(local_storage + "<br/>");
+    document.write(session_storage + "<br/>");
+    document.write(timezone + "<br/>");
+    document.write(language + "<br/>");
+    document.write(system_language + "<br/>");
+    document.write(cookie + "<br/>");
+    document.write(canvas_print + "<br/>");
+}
+</script>
+
+</head>
+
+<body onload="javascript:showFP();">
+
+haha
+</body>
+
+</html>
